@@ -85,7 +85,7 @@ switch classifierMethod{:}
         if(crossVal)
             predFunc = @(XTRAIN,ytrain,XTEST) fullNet(XTRAIN,ytrain,XTEST);
             %Perform 10-fold cross validation
-            Loss = crossval('mse',TrainingFeatures,TrainingLabels,'Predfunc', predFunc);
+            Loss = crossval('mse',TrainingFeatures,TrainingLabels,'Predfun', predFunc);
         end
 end
 disp(['Loss: ' num2str(Loss)]);
