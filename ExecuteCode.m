@@ -1,27 +1,24 @@
 clear all;
 close all;
 
-%Random Num generator to differentiate runs
-rng(1);
-
-% Get the name and dir of the results file.
+% Create a file tp store our results
 resultsFolder = strrep(datestr(datetime), ' ', '_');
 resultsFolder = strrep(resultsFolder, ':', '-');
 resultsFolder = ['results/' resultsFolder '/'];
 mkdir(resultsFolder);
 mkdir([resultsFolder 'images/']);
 
-% Configure the options.
+% Configure what model and Extraction to use
 ExtractionOption = {'raw'};
-ModelType = {'KNN'};
-CrossValidation = false;
+ModelType = {'SVM'};
+CrossValidation = true;
 
 save([resultsFolder 'Options.mat'], 'ExtractionOption', 'ModelType');
 
 % Run the full training / testing.
 [ tPos, tNeg, fPos, fNeg ] = CreateModel( ExtractionOption, ModelType, CrossValidation, resultsFolder);
 
-% Sum the resulting vectors.
+% Sum of the results
 TP = sum(tPos);
 TN = sum(tNeg);
 FP = sum(fPos);

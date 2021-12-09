@@ -1,28 +1,28 @@
 function [Model] = NeuralNetworkTraining( TrainingFeatures, Labels, verbose )
-%We use the Deeplearning add on to Matlab for the Neural Network
+%This is a very simple Neural Network adapted from https://uk.mathworks.com/help/deeplearning/ug/train-stacked-autoencoders-for-image-classification.html
+%We use the Deeplearning Toolbox on to Matlab for the Neural Network
 TrainingFeatures = TrainingFeatures.';
 Labels = Labels.';
 
-% Create a sparse label matrix(very few 1 values)
+% Create a sparse matrix(very few 1 values)
 sparseLabels = zeros(2, size(Labels, 2));
 sparseLabels(1,:) = Labels ~= 1;
 sparseLabels(2,:) = Labels == 1;
 
-% Train the first autoencoder using the images
-auto1 = trainAutoencoder(TrainingFeatures,100, ...
+% Train the first autoencoder
+auto = trainAutoencoder(TrainingFeatures,100, ...
     'MaxEpochs', 100, ...
+    'ShowProgressWindow', verbose, ...
     'L2WeightRegularization',0.01, ...
-    'ScaleData', true, ...
-    'ShowProgressWindow', verbose);
+    'ScaleData', true);
 
-features = encode(auto1,TrainingFeatures);
+features = encode(auto,TrainingFeatures);
 
-% Train a softnet that classifies the feature vector from the 2nd
-% autoencoder, to either Not Pedestrian or Pedestrian
-softnet = trainSoftmaxLayer(features, sparseLabels,'ShowProgressWindow', verbose, 'MaxEpochs', 100);
+% Train a softmax layer, you train the softmax layer in a supervised fashion using labels for the training data
+softmax = trainSoftmaxLayer(features, sparseLabels,'ShowProgressWindow', verbose, 'MaxEpochs', 100);
 
-% Stack them to form a deep net, which is our model
-Model = stack(auto1, softnet);
+% Form a deep net by stacking 
+Model = stack(auto, softmax);
 [Model, tr] = train(Model, TrainingFeatures, sparseLabels);
 
 view(Model);

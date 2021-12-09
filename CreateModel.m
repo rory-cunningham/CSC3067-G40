@@ -103,7 +103,7 @@ ProcessedTestImages = PreProcess(GreyTestImages);
 
 save([resultsFolder 'TestImages.mat'], 'TestImages', 'ProcessedTestImages');
 
-%True positive,true negative, false postive, falas negative
+%True positive,true negative, false postive, false negative
 truePos = zeros(size(ProcessedTestImages,3),1);
 trueNeg = zeros(size(ProcessedTestImages,3),1);
 falsePos = zeros(size(ProcessedTestImages,3),1);
