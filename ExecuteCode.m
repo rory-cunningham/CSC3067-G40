@@ -12,7 +12,7 @@ mkdir(resultsFolder);
 mkdir([resultsFolder 'images/']);
 
 % Configure what model and Extraction to use
-ExtractionOption = {'raw'};
+ExtractionOption = {'hog'};
 ModelType = {'SVM'};
 CrossValidation = true;
 
