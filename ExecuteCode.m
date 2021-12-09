@@ -1,5 +1,8 @@
 clear all;
 close all;
+%Model options: {KNN}, {SVM}, {NeuralNetwork}
+%Extraction Options: {raw} , {hog}, {raw , -pca}, {hog, -pca}
+
 
 % Create a file tp store our results
 resultsFolder = strrep(datestr(datetime), ' ', '_');
