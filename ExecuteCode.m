@@ -12,8 +12,8 @@ mkdir(resultsFolder);
 mkdir([resultsFolder 'images/']);
 
 % Configure what model and Extraction to use
-ExtractionOption = {'hog'};
-ModelType = {'NeuralNetwork'};
+ExtractionOption = {'raw'};
+ModelType = {'SVM'};
 CrossValidation = false;
 
 save([resultsFolder 'Options.mat'], 'ExtractionOption', 'ModelType');
